@@ -5,6 +5,7 @@ Lean 4 を用いた形式検証をまとめたリポジトリです。
 ## コンテンツ
 
 - [Prime avoidance](prime-avoidance/)
+- [極大イデアルの冪による剰余環は局所環](quotient-ring-modulo-power-of-maximal-ideal)
 
 ## メモ
 
