@@ -80,17 +80,18 @@ def map_Quotient_mk_pow_IsMaximal {n} (hn : 1 ≤ n) : (Ideal.map (Ideal.Quotien
   apply Ideal.comap_isMaximal_of_surjective (H := Ideal.bot_isMaximal)
   apply Ideal.Quotient.factor_surjective
 
+-- 一般の n について示す前に n = 2 のケースで証明方法を確認しておく
 -- theorem にすると max_𝔪 が消えてしまうので仕方なく def を使う
 def quot_ring_is_local_2 : IsLocalRing (R⧸𝔪•𝔪) :=
   IsLocalRing.of_unique_max_ideal (by
     suffices H : ∀ I : Ideal R, I.IsMaximal → 𝔪 • 𝔪 ≤ I → I ≤ 𝔪 from
       ⟨
-        Ideal.map (Ideal.Quotient.mk (𝔪 • 𝔪)) 𝔪
-        , by
+        Ideal.map (Ideal.Quotient.mk (𝔪 • 𝔪)) 𝔪,
+        by
           have := map_Quotient_mk_pow_IsMaximal max_𝔪 (n := 2) (by trivial)
           rw [Submodule.pow_succ, Submodule.pow_one] at this
-          trivial
-        , by
+          trivial,
+        by
           intros I max_I
           have H1 : (Ideal.comap (Ideal.Quotient.mk _) I).IsMaximal := by
             apply Ideal.comap_isMaximal_of_surjective
@@ -103,6 +104,8 @@ def quot_ring_is_local_2 : IsLocalRing (R⧸𝔪•𝔪) :=
           have H3 := H _ H1 H2
           have E : Ideal.comap (Ideal.Quotient.mk (𝔪 • 𝔪)) I = 𝔪 := Ideal.IsMaximal.eq_of_le H1 (Ideal.isMaximal_def.mp max_𝔪).left H3
           symm
+          -- 書き換えたい 𝔪 は複数回出現している。rw だとどの出現を書き換えるか指定することになるが、
+          -- 分かりにくいので、calc を使っている
           calc _
             _ = Ideal.map (Ideal.Quotient.mk (𝔪 • 𝔪)) (Ideal.comap (Ideal.Quotient.mk (𝔪 • 𝔪)) I) := by congr; rw [E]
             _ = I := by rw [Ideal.map_comap_of_surjective]; apply Ideal.Quotient.mk_surjective
@@ -130,13 +133,14 @@ def quot_ring_is_local_2 : IsLocalRing (R⧸𝔪•𝔪) :=
       apply le_self_add
   )
 
+-- 一般の場合は n = 2 とほとんど同じように示せる
 def quot_ring_is_local_general {n} (hn : 1 ≤ n) : IsLocalRing (R⧸𝔪^n) :=
   IsLocalRing.of_unique_max_ideal (by
     suffices H : ∀ I : Ideal R, I.IsMaximal → 𝔪^n ≤ I → I ≤ 𝔪 from
       ⟨
-        Ideal.map (Ideal.Quotient.mk (𝔪^n)) 𝔪
-        , by apply map_Quotient_mk_pow_IsMaximal max_𝔪 hn
-        , by
+        Ideal.map (Ideal.Quotient.mk (𝔪^n)) 𝔪,
+        by apply map_Quotient_mk_pow_IsMaximal max_𝔪 hn,
+        by
           intros I max_I
           have H1 : (Ideal.comap (Ideal.Quotient.mk _) I).IsMaximal := by
             apply Ideal.comap_isMaximal_of_surjective
