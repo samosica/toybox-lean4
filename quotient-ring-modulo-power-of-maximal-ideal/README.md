@@ -1,4 +1,4 @@
-# quotient-ring-modulo-power-of-maximal-ideal
+# quot-ring-mod-pow-of-max-ideal
 
 以下の主張を示しています。
 

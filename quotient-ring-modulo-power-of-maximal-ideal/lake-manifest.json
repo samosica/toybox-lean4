@@ -91,5 +91,5 @@
    "inputRev": "main",
    "inherited": true,
    "configFile": "lakefile.toml"}],
- "name": "«quotient-ring-modulo-power-of-maximal-ideal»",
+ "name": "«quot-ring-mod-pow-of-max-ideal»",
  "lakeDir": ".lake"}
